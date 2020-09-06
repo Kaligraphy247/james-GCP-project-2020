@@ -3,8 +3,6 @@
 - Using a virtual environment in the Google Cloud Shell
 
 # Objectives
-- In this lab, you learn how to perform the following tasks:
-
 - Initialize App Engine.
 
 - Preview an App Engine application running locally in Cloud Shell.
@@ -39,34 +37,39 @@
         sudo apt-get update
 # Set up a virtual environment in which you will run your application. Python virtual environments are used to isolate package installations from the system.
     sudo apt-get install virtualenv -y
-
-# 
+- the command above install the "virtualenv" on your system
+# Create venv
         virtualenv -p python3 venv
 # Activate the virtual environment.
+        source venv/bin/activate
 
-
-source venv/bin/activate
-
-# Navigate to your project directory and install dependencies.
+# Install dependencies required for "virtualenv" to run.
         pip install  -r requirements.txt
 
 
 # Run the application:
         python main.py
+# open new tab and enter the following
+        http://127.0.0.1:8080/
+- this is your local host on port 8080
 
-# To end the test, return to Cloud Shell and press Ctrl+C to abort the deployed service.
+# To end the test, return to Cloud Shell and press Ctrl+ C to abort the deployed service.
 
 3. Deploy and run Hello World on App Engine
 # To deploy your application to the App Engine Standard environment:
 # Navigate to the source directory:
         cd ~/python-docs-samples/appengine/standard_python3/hello_world
 
-# Deploy your Hello World application.
-        gcloud app deploy -y
+# To deploy your Hello World application.
+        gcloud app deploy
+# You will be asked to choose the region where you want your App Engine application located
+- choose the region that was assigned to you
+# Enter the numerical value of the region and press "Enter"
+        14
+-  If prompted "Do you want to continue (Y/n)?", press Y and then Enter.
 
 - This app deploy command uses the app.yaml file to identify project configuration.
 
-# Launch your browser to view the app at http://YOUR_PROJECT_ID.appspot.com
+# To Launch the app, execute:
         gcloud app browse
-
-# 
+# Copy and paste the resulting link in a new browser tab to view it
