@@ -1,1 +1,1 @@
-# translations should be in this folder
+# Translations should be in this folder
