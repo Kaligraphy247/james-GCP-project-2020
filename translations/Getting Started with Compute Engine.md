@@ -1,18 +1,18 @@
 # Getting Started with Compute Engine
-# In this lab, we shall create virtual machines and connect to them
-# We will aslo create connections between the instances
+- In this lab, we shall create virtual machines and connect to them
+- We will aslo create connections between the instances
 
 1. Create a virtual machine using the GCP Console 
 Open the Cloud Shell Interface and type in the following (you could copy and paste)
-# each command should be followed by "Enter" on your keyboard  
+- each command should be followed by "Enter" on your keyboard  
 
     gcloud compute instances create my-vm-1 --zone=us-central1-a --machine-type=n1-standard-1 --image=debian-9-stretch-v20200902 --image-project=debian-cloud --boot-disk-size=10GB --tags=http-server
 
 # this creates a VM with the name "my-vm-1" 
-# in the region  "us-central-1" 
-# and zone "us-central1-a"
-# with the default machine type "n1-standard-1" and image fle "debian-9-stretch-v20200902"
-# and image project "debian-cloud" with a boot disk size of "10GB"
+- in the region  "us-central-1" 
+- and zone "us-central1-a"
+- with the default machine type "n1-standard-1" and image fle "debian-9-stretch-v20200902"
+- and image project "debian-cloud" with a boot disk size of "10GB"
 
 
 # this creates a firewall rule that allow http traffic in the Virtual Machine 
@@ -30,13 +30,13 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
 
 3. Connect between VM instances
     
-    3.1 Use the "ping" command to confirm that my-vm-2 can reach my-vm-1 over the network
- # this connects to my-vm-2 via SSH       
+- 3.1 Use the "ping" command to confirm that my-vm-2 can reach my-vm-1 over the network
+# this connects to my-vm-2 via SSH       
         gcloud compute ssh my-vm-2
 # this will attempt to ping my-vm-1, 3 times    
         ping -c 3 my-vm-1
 # 
-    3.2 Install nginx web server on my-vm-1
+- 3.2 Install nginx web server on my-vm-1
 # to exit from my-vm-2 SSH, execute:
         exit
 # to connect to my-vm-1 via SSH, execute:
@@ -50,7 +50,7 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
         Hi from James
 # Press CTRL + O and the press "Enter" to save 
 # press CTRL + X to exit the nano text editor
-    3.3 Confirm that the web server is running
+- 3.3 Confirm that the web server is running
 # on your Command line on my-vm-1, execute:
         curl http://localhost/
 # now, exit my-vm-1 command line
@@ -62,7 +62,7 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
 # exit from my-vm-2 SSH command, execute:
         exit         
  #    
-    3.4 Get the external IP address for my-vm-1
+- 3.4 Get the external IP address for my-vm-1
 # to get the external IP address for my-vm-1, execute this command
         gcloud compute instances list
 # copy the IP address for my-vm-1, open a new tab on your browser and paste and go
