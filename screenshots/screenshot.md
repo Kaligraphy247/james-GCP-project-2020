@@ -1,1 +1,1 @@
-# screenshots should be found in this folder
+# Screenshots should be found in this folder
