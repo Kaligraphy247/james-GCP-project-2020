@@ -27,12 +27,14 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
     gcloud compute instances create "my-vm-2" --machine-type "n1-standard-1" --image-project "debian-cloud" --image "debian-9-stretch-v20190213" --subnet "default"
 
 3. Connect between VM instances
+    
     3.1 Use the "ping" command to confirm that my-vm-2 can reach my-vm-1 over the network
+ # this connects to my-vm-2 via SSH       
         gcloud compute ssh my-vm-2
-# this connects to my-vm-2 via ssh
-   
+# this will attempt to ping my-vm-1, 3 times    
         ping -c 3 my-vm-1
-# this will attempt to ping my-vm-1 3 times 
+
+
     3.2 Install nginx web server on my-vm-1
 # use the ssh command line to open a terminal on  my-vm-1 from my-vm-2
         ssh my-vm-1
