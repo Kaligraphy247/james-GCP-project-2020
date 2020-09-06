@@ -35,8 +35,7 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
         gcloud compute ssh my-vm-2
 # this will attempt to ping my-vm-1, 3 times    
         ping -c 3 my-vm-1
-
-
+# 
     3.2 Install nginx web server on my-vm-1
 # to exit from my-vm-2 SSH, execute:
         exit
