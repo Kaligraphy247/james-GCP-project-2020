@@ -15,18 +15,21 @@
 - Use the image in the Cloud Storage bucket on a web page.
 
 # 1. Deploy a web server VM instance
+
 # We need to create a web server VM Instance
+
 # Launch the Cloud Shell Interface and execute
-        gcloud compute instances create my-vm-1 --zone=us-central1-a --machine-type=n1-standard-1 --image=debian-9-stretch-v20200902 --image-project=debian-cloud --boot-disk-size=10GB --tags=http-server
-# Firewall*
-        gcloud compute firewall-rules create default-allow-http --direction=INGRESS --action=ALLOW --rules=tcp:80 --target-tags=http-server
-# Startup Script
-        apt-get update
-        apt-get install apache2 php php-mysql -y
-        service apache2 restart
-# take note of VM internal and external IP address
+- Note the Startup Script which starts from "--metadata..."
+# 
+        gcloud compute instances create bloghost --zone=us-central1-a --machine-type=n1-standard-1 --metadata=startup-script=apt-get\ update$'\n'apt-get\ install\ apache2\ php\ php-mysql\ -y$'\n'service\ apache2\ restart  --tags=http-server --image=debian-9-stretch-v20200902 --image-project=debian-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=bloghost
+
+# Create a firewall rule that allows http traffic in the Virtual Machine, execute: 
+        gcloud compute firewall-rules create default-allow-http --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=http-server
+
+# Take note of bloghost's internal and external IP address
 
 # 2. Create a Cloud Storage bucket using the gsutil command line
+
 # For convenience, enter your chosen location into an environment variable called LOCATION. Enter one of these commands:
         export LOCATION=US
 
@@ -45,13 +48,16 @@
 # 3. Create the Cloud SQL instance
 
 # 4 Configure an application in a Compute Engine instance to use Cloud SQL
-# Connect to VM_NAME via SSH
-# To connect to VM_NAME via SSH, execute
-        gcloud compute ssh VM_NAME
+# Connect to bloghost via SSH
+# To connect to bloghost via SSH, execute
+        gcloud compute ssh bloghost
+
 # In your ssh session on bloghost, change your working directory to the document root of the web server:
         cd /var/www/html
+
 # Use the nano text editor to edit a file called index.php:
         sudo nano index.php
+
 # Paste the content below into the file:
         <html>
         <head><title>Welcome to my excellent blog</title></head>
@@ -74,38 +80,55 @@
         }
         ?>
         </body></html>
+
 # Press Ctrl+O, and then press Enter to save your edited file.
 # Press Ctrl+X to exit the nano text editor.
 
 # Restart the web server:
         sudo service apache2 restart
-# Open a new web browser tab and paste into the address bar your bloghost VM instance's external IP address followed by /index.php. The URL will look like this:
-        35.192.208.2/index.php
-# When you load the page, you will see that its content includes an error message beginning with the words:
-        Database connection failed: ...
 
+# Open a new web browser tab and paste into the address bar your bloghost VM instance's external IP address followed by /index.php. The URL will look like this:
+        35.226.18.186/index.php
+# 
+- When you load the page, you will notice that it includes an error message beginning with the words:
+# 
+        Database connection failed: ...
+# 
 - This message occurs because you have not yet configured PHP's connection to your Cloud SQL instance.
+
 # Return to your ssh session on bloghost. Use the nano text editor to edit index.php again.
         sudo nano index.php
-# In the nano text editor, replace CLOUDSQLIP with the Cloud SQL instance Public IP address that you noted above. Leave the quotation marks around the value in place.
 
-# In the nano text editor, replace DBPASSWORD with the Cloud SQL database password that you defined above. Leave the quotation marks around the value in place.
+# In the nano text editor; 
+- Replace CLOUDSQLIP with the Cloud SQL instance Public IP address that you noted above.
+- Replace DBPASSWORD with the Cloud SQL database password that you created earlier
+- Leave the quotation marks around the value in place.
+
 
 # Press Ctrl+O, and then press Enter to save your edited file.
-
 # Press Ctrl+X to exit the nano text editor.
 
 # Restart the web server:
         sudo service apache2 restart
-# Return to the web browser tab in which you opened your bloghost VM instance's external IP address. When you load the page, the following message appears:
+
+# Return to the web browser tab in which you opened your bloghost VM instance's external IP address.
+        35.226.18.186/index.php
+ 
+ # When you load the page, you will notice that the error message has been fixed
         Database connection succeeded
+
 # 5. Configure an application in a Compute Engine instance to use a Cloud Storage object
 # Return to your ssh session on your bloghost VM instance.
+- Assuming that you didn't EXIT from the session, otherwise execute:
+# 
+        gcloud compute ssh bloghost
 
 # Enter this command to set your working directory to the document root of the web server:
         cd /var/www/html
-# Use the nano text editor to edit index.php:
+
+# Use the nano text editor to edit index.php
         sudo nano index.php
+# 
 - Use the arrow keys to move the cursor to the line that contains the h1 element. Press Enter to open up a new, blank screen line, and then paste the URL you copied earlier into the line.
 
 # Paste this HTML markup immediately before the URL:
@@ -118,3 +141,5 @@
 
 # Restart the web server:
         sudo service apache2 restart
+
+# Return to the web browser tab in which you opened your bloghost VM instance's external IP address. When you load the page, its content now includes a banner image.
