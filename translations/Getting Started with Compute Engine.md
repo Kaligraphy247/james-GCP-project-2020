@@ -10,12 +10,14 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
 
 # this creates a VM with the name "my-vm-1" 
 # in the region  "us-central-1" 
-# and zone "a*"
+# and zone "us-central1-a"
 # with the default machine type "n1-standard-1" and image fle "debian-9-stretch-v20200902"
 # and image project "debian-cloud" with a boot disk size of "10GB"
 
-    gcloud compute firewall-rules create default-allow-http --direction=INGRESS --action=ALLOW --rules=http:80 --target-tags=http-server
+
 # this creates a firewall rule that allow http traffic in the Virtual Machine 
+    gcloud compute firewall-rules create default-allow-http --direction=INGRESS --action=ALLOW --rules=tcp:80 --target-tags=http-server
+
 
 2. Create a virtual machine using the gcloud command line
 # use this partial command to list all the zones in the region you want to run your VM
@@ -36,8 +38,10 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
 
 
     3.2 Install nginx web server on my-vm-1
-# use the ssh command line to open a terminal on  my-vm-1 from my-vm-2
-        ssh my-vm-1
+# to exit from my-vm-2 SSH, execute:
+        exit
+# to connect to my-vm-1 via SSH, execute:
+        gcloud compute ssh my-vm-1
 # install nginx web server
         sudo apt-get install nginx-light -y
 # Use the nano text editor to add a custom message to the home page of the web server
@@ -52,8 +56,13 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
         curl http://localhost/
 # now, exit my-vm-1 command line
         exit
-# to confirm that my-vm-2 can reach the web server on my-vm-1, at the command prompt on my-vm-2, execute this command:
+# to confirm that my-vm-2 can reach the web server on my-vm-1, connect to my-vm-2 via SSH
+        gcloud compute ssh my-vm-2
+# at the SSH command prompt on my-vm-2, execute this command:
         curl http://my-vm-1/
+# exit from my=vm-2 SSH command, execute:
+        exit         
+    
     3.4 Get the external IP address for my-vm-1
 # to get the external IP address for my-vm-1, execute this command
         gcloud compute instances list
