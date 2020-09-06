@@ -52,7 +52,7 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
 # Press CTRL + O and the press "Enter" to save 
 # press CTRL + X to exit the nano text editor
     3.3 Confirm that the web server is running
-# on your COmmand line on my-vm-1, execute:
+# on your Command line on my-vm-1, execute:
         curl http://localhost/
 # now, exit my-vm-1 command line
         exit
@@ -60,9 +60,9 @@ Open the Cloud Shell Interface and type in the following (you could copy and pas
         gcloud compute ssh my-vm-2
 # at the SSH command prompt on my-vm-2, execute this command:
         curl http://my-vm-1/
-# exit from my=vm-2 SSH command, execute:
+# exit from my-vm-2 SSH command, execute:
         exit         
-    
+ #    
     3.4 Get the external IP address for my-vm-1
 # to get the external IP address for my-vm-1, execute this command
         gcloud compute instances list
