@@ -38,4 +38,36 @@ gcloud config list project
 
 # Execute the following command to download and update the packages list.
         sudo apt-get update
+# Set up a virtual environment in which you will run your application. Python virtual environments are used to isolate package installations from the system.
 
+sudo apt-get install virtualenv -y
+# 
+        virtualenv -p python3 venv
+# Activate the virtual environment.
+
+
+source venv/bin/activate
+
+# Navigate to your project directory and install dependencies.
+        pip install  -r requirements.txt
+
+
+# Run the application:
+        python main.py
+
+# To end the test, return to Cloud Shell and press Ctrl+C to abort the deployed service.
+
+3. Deploy and run Hello World on App Engine
+# To deploy your application to the App Engine Standard environment:
+# Navigate to the source directory:
+        cd ~/python-docs-samples/appengine/standard_python3/hello_world
+
+# Deploy your Hello World application.
+        gcloud app deploy -y
+
+- This app deploy command uses the app.yaml file to identify project configuration.
+
+# Launch your browser to view the app at http://YOUR_PROJECT_ID.appspot.com
+        gcloud app browse
+
+# 
