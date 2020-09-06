@@ -1,6 +1,6 @@
 # Getting Started with Compute Engine
-- In this lab, we shall create virtual machines and connect to them
-- We will aslo create connections between the instances
+# In this lab, we shall create virtual machines and connect to them
+# We will aslo create connections between the instances
 
 1. Create a virtual machine using the GCP Console 
 Open the Cloud Shell Interface and type in the following (you could copy and paste)
