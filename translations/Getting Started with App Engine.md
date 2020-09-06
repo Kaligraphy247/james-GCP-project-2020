@@ -1,6 +1,6 @@
 # Getting Started with App Engine
-# In this lab, you create and deploy a simple App Engine application
-# Using a virtual environment in the Google Cloud Shell
+- In this lab, you create and deploy a simple App Engine application
+- Using a virtual environment in the Google Cloud Shell
 
 # Objectives
 - In this lab, you learn how to perform the following tasks:
@@ -18,8 +18,7 @@
 # You can list the active account name with this command:
         gcloud auth list
 # You can list the project ID with this command:
-
-gcloud config list project
+        gcloud config list project
 # 
 
 1. Initialize your App Engine app with your project and choose its region:
@@ -39,8 +38,8 @@ gcloud config list project
 # Execute the following command to download and update the packages list.
         sudo apt-get update
 # Set up a virtual environment in which you will run your application. Python virtual environments are used to isolate package installations from the system.
+    sudo apt-get install virtualenv -y
 
-sudo apt-get install virtualenv -y
 # 
         virtualenv -p python3 venv
 # Activate the virtual environment.
